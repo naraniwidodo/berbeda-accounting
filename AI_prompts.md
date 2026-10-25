@@ -2481,6 +2481,54 @@ things the render caught that reading the code would not have:
 **Output** — `output/slides.html` (9 slides, 661 KB), `README.md`,
 `.env.example`, `output/report.html` at 21 printed pages
 
+## 48 · The 15-page cap
+
+**Prompt**
+> Trim to 15, that's a cap from my professor. You can reduce the font size &
+> reduce the screenshots size if needed, don't make appendix
+
+**Response**
+
+**15 pages, with nothing removed.** Same 18 screenshots, 9 tables, 4 code
+blocks, 4,932 words — counted before and after to be sure.
+
+The thing that unlocked it was measuring what the screenshots were actually
+doing on the page, rather than assuming. Each one is a 1440×810 slide capped
+at `max-height` with `object-fit:contain`, so it painted **4.1in wide inside
+an 8.5in column** and left the rest of the row white. The page was not being
+spent on the screenshots; it was being spent on the air beside them.
+
+So pairing them costs almost nothing. Two per row at 3.6in each is **12%
+smaller**, not the 22% my earlier attempt in 47 cost, because that attempt
+capped the height as well and squeezed them twice. Adjacent figures are now
+wrapped in `.pair` rows automatically — 8 pairs, 2 left single where a section
+has an odd count.
+
+| Step | Pages |
+|---|---|
+| Where 47 left it | 21 |
+| Figures paired, 0.5in margins, 9.5pt | 18 |
+| 9pt body, tighter tables, code, lists and cards | 16 |
+| `orphans:1; widows:1` | **15** |
+
+That last line looks trivial and was worth a page. The print default keeps two
+lines of a paragraph together, which was pushing one orphaned sentence and the
+footer onto a sixteenth page. Relaxing it let them close up.
+
+Two things worth knowing:
+
+* **The screen view is unchanged.** All of the compression lives in
+  `@media print`, so reading it in a browser still gives full width
+  screenshots and comfortable type. Only the printed form is 15 pages.
+* **`output/report.pdf`** is committed alongside it — 15 letter pages,
+  so the page count can be checked without rendering anything.
+
+The body is 9pt. That is smaller than the 11pt a report usually sets, and it
+is the cost of holding every screenshot and every evidence table inside the
+cap.
+
+**Output** — `output/report.html` at 15 printed pages, `output/report.pdf`
+
 ---
 
 # Resuming
@@ -2593,7 +2641,8 @@ no amounts or counterparty names.
 | D28 | **Sales is three templates.** Revenue is recognised on payment — by `A1` or `A5`, never again at `A4`, which would double-count it | 30 |
 | D29 | **Reference-field labels and suggestions are per template group**, so tax never offers a marketplace | 31 |
 | D30 | **The brand guideline stays out of the public repo.** It is a Dassein Design Bureau document reserving all rights and barring reproduction without written permission. The repo is ours to publish; that PDF is not. It is still in `output/` locally | 47 |
-| D31 | **The report stays at 21 printed pages rather than losing screenshots.** Formatting took it from 30 to 21; the rest of the gap would cost evidence or legibility | 47 |
+| D31 | ~~The report stays at 21 printed pages~~ — **superseded in 48.** The professor's cap is 15, and pairing the figures got there with nothing removed | 47, 48 |
+| D32 | **Compression lives in `@media print` only.** The browser view keeps full-width screenshots and comfortable type; only the printed form is 15 pages | 48 |
 | D23 | Figures are checked against **tool output content**, not merely that a data tool ran | 22 |
 
 ---
@@ -2612,7 +2661,8 @@ no amounts or counterparty names.
 | `AGENTS.md` | Project-level rules; pins the model |
 | `backend/` | FastAPI + SQLite API and the accounting helper |
 | `web/` | React + Vite + TypeScript front end (Berbeda) |
-| `output/report.html` | The written report, 21 printed letter pages |
+| `output/report.html` | The written report, 15 printed letter pages |
+| `output/report.pdf` | The same report printed, so the page count can be checked |
 | `output/slides.html` | Nine-slide reveal.js deck, images embedded |
 | `README.md` | Clone-and-run instructions for the public repo |
 | `output/brand_guideline_front_end.pdf` | BERBEDA brand guideline — **local only**, see D30 |
