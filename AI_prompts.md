@@ -2686,6 +2686,54 @@ start over.
 **Output** — `README.md`, `backend/seed_demo.py`, `.env.example`,
 `backend/agent.py`, `backend/main.py`, `web/src/components/Chat.tsx`
 
+## 52 · The TA's test scenarios in the README
+
+**Prompt** — the author's own eight test scenarios, written out, to be added to
+the README so the teaching team knows how to exercise the app: client
+registration, a down payment, its final settlement, a purchase, a note that
+sections C and D mirror the purchase, a manual entry, the P&L and the Balance
+Sheet. *"Don't do it for me, I'll add it after this"* applied to writing the
+scenarios, which were supplied.
+
+**Response**
+
+Added as **Testing it yourself, step by step**, nine scenarios, linked from the
+*For the teaching team* block at the top so it cannot be missed.
+
+Her wording and her examples are kept. Four things were corrected against the
+running app rather than transcribed:
+
+| Written | On screen |
+|---|---|
+| "Client Registration" in the nav | the nav item is **Clients**; the page heading is Client Registration |
+| "Profit & Loss" in the nav | the nav item is **P&L** |
+| "Insert the amount" for `A1` | `A1` has **two** money fields, *Down payment received* and *Total project value* |
+| "For 'Paid now', I pick 'Paid now'" | the control is labelled **How settled** |
+
+The `A1` gap was the one that mattered. With only one amount given, a TA would
+have stalled at a form with two boxes. Her two figures resolve it: 1,403,840
+and 724,000 sum to **2,127,840**, so that is the project value, and the
+settlement then clears the deposit to zero.
+
+**Then I ran all of it against an isolated copy on an empty journal**, with her
+exact values, and test 6 failed: `422 Marketing: invalid detail None`. Manual
+lines each carry a detail, and the API will not take one without it. In the
+browser it is a non-issue, because the form fills the detail in the moment you
+pick the account. So the scenario was right and my API call was wrong, but it
+showed the README table was missing a column a reader would look for. Test 6
+now lists Detail per line and says it fills itself.
+
+Re-run from empty afterwards: **all five posting scenarios return 201**, the
+down payment clears to zero open, and the Balance Sheet balances at 2,032,840.
+
+One answer worth recording, since it was the question behind the request: a TA
+does **not** find an empty journal if they follow the README, because step 4
+seeds it. The scenarios are worth adding for a different reason, which is that
+seeded data proves the system already worked while typing an entry proves it
+works now.
+
+**Output** — `README.md`
+
 ---
 
 # Resuming
@@ -2805,6 +2853,7 @@ no amounts or counterparty names.
 | D35 | **Submit as a local run, not a hosted link.** Hosting would expose the Portkey key on a public URL and depend on a free tier staying awake through grading | 51 |
 | D36 | **A blank or placeholder key means "not configured"**, so an unedited clone says so politely instead of returning a gateway 401 | 51 |
 | D37 | **Demo data is invented, never Ber.be.da's.** `seed_demo.py` posts through the real rules so the statements have figures to show | 51 |
+| D38 | **The README carries the author's own test scenarios**, with on-screen labels rather than remembered ones, so a grader can post an entry by hand instead of only reading seeded data | 52 |
 | D23 | Figures are checked against **tool output content**, not merely that a data tool ran | 22 |
 
 ---

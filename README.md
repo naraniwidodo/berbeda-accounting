@@ -18,6 +18,12 @@ and take about five minutes. They were last run end to end on a clean clone on
 and the chat panel says plainly that it is not connected. A key only turns on
 the chatbot, which is Section 4 of the report.
 
+**Nine test scenarios are written out below**, under
+[Testing it yourself, step by step](#testing-it-yourself-step-by-step). They are
+the author's own tests, in order, with the exact values to type. Following them
+takes about ten minutes and covers registration, a sale in two stages, a
+purchase, a manual entry, both statements and the chatbot.
+
 If you would rather read than run, the two deliverables open straight in a
 browser with no setup at all:
 
@@ -108,6 +114,138 @@ Now the Balance Sheet reads **Total assets 9,510,000**, **Liabilities + equity
 
 ---
 
+## Testing it yourself, step by step
+
+These are the author's own test scenarios. Following them in order takes about
+ten minutes and exercises every part of the system.
+
+You can run them on an empty journal or on the seeded one. **If you want to see
+only your own entries in the P&L, skip the seed step above.** If you want a
+realistic book to add to, seed it first.
+
+Every page is reachable from the navigation bar at the top, so "go back to
+Home" is never necessary.
+
+### Test 1. Client Registration
+
+A project has to exist before you can journal against it.
+
+1. Open **Clients** in the navigation.
+2. **SKU**: `SKU0326`
+3. **Client name**: `Matteo`
+4. **Down payment date**: `01/01/2026`
+5. **Project**: `Hello Kitty Shoes`
+6. Click **Register project**.
+
+The project appears in the table underneath.
+
+### Test 2. Down payment
+
+Do Test 1 first. `A1` needs a registered SKU.
+
+1. Open **Journal Entries**.
+2. **What happened**: `A1 - Sales - Down Payment`
+3. **Date of transaction**: `01/01/2026`
+4. **SKU / project**: pick `SKU0326`, the project from Test 1.
+5. **Detail**: `Jasa Lukis`, which is Bahasa Indonesia for painting services.
+6. **Down payment received**: `1,403,840`
+7. **Total project value**: `2,127,840`
+8. Click **Post entry**.
+
+The journal entry appears straight away. An **Undo** button sits beside it for
+six seconds, in case the amount was wrong. Undo *cancels* the entry rather than
+erasing it: the row stays with its reason recorded and its transaction number
+spent, because nothing in this app deletes.
+
+### Test 3. Down payment, final settlement
+
+This continues Test 2, so do that one first.
+
+1. Open **Journal Entries**.
+2. **What happened**: `A4 - Sales - Down Payment Final Settlement`
+3. **Date of transaction**, **SKU / project** and **Detail**: the same as Test
+   2. The SKU is what lets the settlement find the deposit it belongs to.
+4. **Cash received**: `724,000`
+5. Click **Post entry**.
+
+`1,403,840 + 724,000 = 2,127,840`, so the project is now paid in full and the
+down payment is cleared.
+
+> If you skip Test 2 and try this one on its own, the form warns you before you
+> can post: *"No open down payment found for SKU0326. Post A1 first, or use A5
+> if the sale was paid in full with no DP."* That warning is the feature
+> working, not a failure.
+
+### Test 4. Purchase
+
+1. Open **Journal Entries**.
+2. **What happened**: pick a purchase. The example uses
+   `B1 - Shipping / delivery`, to record the cost of shipping Matteo's shoes.
+3. **Detail**: `Pengiriman`, Bahasa Indonesia for shipping.
+4. **How settled**: `Paid now`, because shipping is always paid in cash here.
+   The other two options are `On credit` and `From prepayment`.
+5. **Amount**: whatever the shipping cost was.
+6. **Invoice number**: the number on the shipping vendor's invoice.
+7. Click **Post entry**.
+
+### Test 5. Sections C and D
+
+These work the same way as Test 4. Pick the template, fill in the fields, post.
+Section 4 of [`output/report.html`](output/report.html) documents the author's
+own test of each one, with screenshots.
+
+### Test 6. Manual entry
+
+For transactions no template covers. This one needs some journalling
+knowledge, because you write the debits and credits yourself.
+
+1. Open **Journal Entries**.
+2. **What happened**: `F1 - Others (manual entry)`
+3. Fill in the **Manual lines** with both sides. The example records a
+   reimbursement to an employee in marketing, which is a made up scenario:
+
+   | Side | Account | Detail | Amount |
+   |---|---|---|---|
+   | Dr | Marketing | Marketing Others | 10,000 |
+   | Cr | Account Payable | Operasional | 10,000 |
+   | Dr | Account Payable | Operasional | 10,000 |
+   | Cr | Cash/Bank | not needed | 10,000 |
+
+4. Click **Post entry**.
+
+Each line has its own **Detail** dropdown, which fills itself in as soon as you
+pick the account, so you can leave it alone unless you want a different one.
+Accounts that do not use details, such as `Cash/Bank`, do not show the field.
+
+Manual entries need at least two lines and the debits must equal the credits.
+The app refuses anything that does not balance, which is the point of entering
+them here rather than in a spreadsheet.
+
+### Test 7. Profit and Loss
+
+1. Open **P&L** in the navigation.
+2. Every entry posted above is reflected here. Filter by month, or download as
+   Excel or CSV.
+
+### Test 8. Balance Sheet
+
+1. Open **Balance Sheet** in the navigation.
+2. The same entries, as closing balances. **Difference** should read `0`.
+   Download it if you want.
+
+### Test 9. The accounting helper
+
+This one needs a Portkey key in `.env`. Without one the panel says so.
+
+1. Click **Ask**, bottom right of any page.
+2. Try *"Why does a settlement debit Prepayment Client?"* for the method, or
+   *"What was my revenue this year?"* for a figure read out of the journal.
+
+Under each answer the panel names the tools it used and the tokens it spent.
+It will not state a figure it was not given.
+
+---
+
 ## What to look at
 
 | Page | What it shows |
@@ -120,6 +258,9 @@ Now the Balance Sheet reads **Total assets 9,510,000**, **Liabilities + equity
 
 The posting rules are deterministic Python, not model output. The chatbot is the
 only part of the app that calls an AI model.
+
+If you would rather be told exactly what to type, use the nine scenarios above
+instead of this table.
 
 ---
 
