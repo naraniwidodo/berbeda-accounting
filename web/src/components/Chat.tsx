@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { sendChat, type ChatReply, type ChatUsage } from '../lib/api'
+import { fetchHealth, sendChat, type ChatReply, type ChatUsage } from '../lib/api'
 
 /**
  * The model writes the occasional **bold** or `code`. Rendering those two is
@@ -36,7 +36,18 @@ export default function Chat() {
   const [draft, setDraft] = useState('')
   const [busy, setBusy] = useState(false)
   const [usage, setUsage] = useState<ChatUsage | null>(null)
+  //: null while unknown. A fresh clone with no key in .env still runs every
+  //: other page, so say that here rather than letting someone ask and be
+  //: turned away three times.
+  const [aiOn, setAiOn] = useState<boolean | null>(null)
   const scroller = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!open || aiOn !== null) return
+    fetchHealth()
+      .then((h) => setAiOn(h.aiConfigured))
+      .catch(() => setAiOn(null))
+  }, [open, aiOn])
 
   useEffect(() => {
     scroller.current?.scrollTo({ top: scroller.current.scrollHeight, behavior: 'smooth' })
@@ -109,13 +120,21 @@ export default function Chat() {
               and it can look up your own P&amp;L and Balance Sheet figures by period. It never
               guesses a number it wasn’t given.
             </p>
-            <div className="chat-openers">
-              {OPENERS.map((o) => (
-                <button key={o} onClick={() => send(o)}>
-                  {o}
-                </button>
-              ))}
-            </div>
+            {aiOn === false ? (
+              <p className="chat-offline">
+                The helper is not connected yet — no API key is set. Put your Portkey key in
+                the <code>.env</code> file at the project root and restart the API. Every other
+                page works without it.
+              </p>
+            ) : (
+              <div className="chat-openers">
+                {OPENERS.map((o) => (
+                  <button key={o} onClick={() => send(o)}>
+                    {o}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         )}
 

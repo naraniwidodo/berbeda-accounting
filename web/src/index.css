@@ -356,6 +356,11 @@ tbody tr.cancelled td.side-Cr { color: var(--text-faint); }
 .chat-empty p {
   margin: 0 0 14px; font-size: 13px; color: var(--text-soft); line-height: 1.5;
 }
+.chat-offline {
+  background: #fdf6e9; border-left: 3px solid var(--amber); border-radius: 0 6px 6px 0;
+  padding: 10px 12px; color: var(--text-soft);
+}
+.chat-offline code { font-family: var(--num, monospace); font-size: .92em; }
 .chat-openers { display: flex; flex-direction: column; gap: 7px; }
 .chat-openers button {
   text-align: left;

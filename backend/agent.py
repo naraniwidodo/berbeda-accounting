@@ -24,7 +24,7 @@ from functools import lru_cache
 from pathlib import Path
 
 from dotenv import load_dotenv
-from openai import AsyncOpenAI
+from openai import AsyncOpenAI, AuthenticationError
 from pydantic_ai import Agent
 from pydantic_ai.exceptions import UsageLimitExceeded
 from pydantic_ai.messages import ModelResponse, ModelRequest, ToolCallPart, ToolReturnPart
@@ -109,9 +109,28 @@ class NotConfigured(RuntimeError):
     """No Portkey API key available."""
 
 
+class KeyRejected(RuntimeError):
+    """The gateway refused the key. Almost always a wrong or expired key."""
+
+
+#: Values that mean "nobody has filled this in yet".
+#:
+#: `.env.example` ships a placeholder, and a fresh clone is copied from it. If
+#: the placeholder counted as a key the app would report itself configured,
+#: offer the chatbot, and then come back with a raw 401 from the gateway. It is
+#: far kinder to notice that nothing was filled in and say so.
+_UNSET = {"", "your-portkey-api-key-here", "your-api-key-here", "changeme",
+          "replace-me", "todo", "none"}
+
+
+def _api_key() -> str | None:
+    raw = (os.getenv("PORTKEY_API_KEY") or "").strip()
+    return None if raw.lower() in _UNSET else raw
+
+
 def portkey_config() -> dict[str, str | None]:
     return {
-        "api_key": os.getenv("PORTKEY_API_KEY"),
+        "api_key": _api_key(),
         "base_url": os.getenv("PORTKEY_BASE_URL", "https://api.portkey.ai/v1"),
         "provider": os.getenv("PORTKEY_PROVIDER", "openai"),
     }
@@ -198,6 +217,14 @@ async def ask(messages: list[ChatMessage]) -> Run:
 
     try:
         result = await agent.run(prompt, usage_limits=usage_limits())
+    except AuthenticationError as exc:
+        # a wrong key is the commonest setup mistake; name it rather than
+        # passing the gateway's own wording back to the user
+        log.warning("gateway rejected the API key")
+        raise KeyRejected(
+            "Portkey rejected the API key. Check PORTKEY_API_KEY in the .env "
+            "file at the project root, then restart the server."
+        ) from exc
     except UsageLimitExceeded as exc:
         # a ceiling fired: report it as itself, not as "the helper could not
         # answer", so the cause is visible rather than guessed at

@@ -406,6 +406,8 @@ async def chat(body: ChatRequest) -> ChatReply:
             f"That question hit a usage ceiling and was stopped: {exc}. "
             f"Try asking something narrower, or raise the limit in .env.",
         ) from exc
+    except helper.KeyRejected as exc:
+        raise HTTPException(401, str(exc)) from exc
     except helper.ModelMismatch as exc:
         # a quiet downgrade is worse than an outage: say so
         raise HTTPException(502, str(exc)) from exc
