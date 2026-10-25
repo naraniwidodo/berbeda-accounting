@@ -2529,6 +2529,64 @@ cap.
 
 **Output** — `output/report.html` at 15 printed pages, `output/report.pdf`
 
+## 49 · The deck, rebuilt in consulting format
+
+**Prompt**
+> 1. Do you know McKinsey formatting style? Maybe can you do it like that, but
+> keep the design to be minimalistic with all the brand colors? I want it to be
+> more packed. Don't trim too much from the report just for the sake of a short
+> aesthetic slide. Seeing your slide now, I feel like you can add much more.
+> 2. The demo slide, I want you to put more slides (from the attached PPT)
+> there. Reduce the screenshot size. 3. The screenshot in the Introduction
+> slide is cut to half, be careful, make it back to full phone size porftolio.
+
+**Response**
+
+**1 · Consulting format, same palette.** What actually makes a deck read as
+McKinsey is not decoration, it is that the **title is the finding**, not the
+topic. Every slide headline is now a full sentence that states the conclusion,
+with a hairline rule under it, the body as exhibits beneath, a *so what* banner
+where there is a judgement to make, and a source line naming the report section
+the figures came from.
+
+| Before | After |
+|---|---|
+| `THE PROBLEM` | *A custom painting studio cannot buy its accounting off the shelf, so today one founder does it by hand* |
+| `COST TO RUN` | *Keeping AI out of four of the five pages holds the bill at nine cents a month for three users* |
+| `SAFETY` | *A prompt is a request, so the three real risks are answered in code rather than in instructions* |
+
+Packed, as asked. Base type dropped from 30px to 26px and slides are now top
+aligned rather than vertically centred, which is what lets an exhibit page fill.
+Content pulled across from the report that the first version left behind: the
+*how Ber.be.da handles it today* table, full pros and cons for all four
+alternatives, all eight tools by name with their arguments, the hop and tool
+call evidence tables, the 400 token cap evidence, the ten grounding cases, the
+spending controls, and the clone-and-run commands.
+
+Slide count stays at 10. Every slide was rendered at 1280×720 and measured
+against the frame; the tightest now has 5px to spare and none overflows.
+
+**2 · The demo slide carries all twelve.** The PPT is `AI Big Project
+Slides-3.pdf` in Downloads — 16 slides, all of which were already embedded in
+`report.html`, so nothing new had to be imported. The demo page is now a
+**5 × 3 exhibit grid of all twelve feature checks**, small, numbered 02 to 13,
+with the caveat sitting in the three cells the last row leaves empty.
+
+Three more of her slides that the first deck ignored are now exhibits too: the
+business process diagram on *what is new*, the step-by-step run on *how it
+works*, and the seven test chats on *cost*. **All 19 images from the report are
+now in the deck**, up from 7.
+
+**3 · The portfolio screenshot was cropped. Fixed.** It is 738×1304, portrait,
+and the first version used `object-fit:cover` to force it into a short box,
+which cut it in half. That rule is gone — it now renders at 204×360 with its
+aspect ratio intact, the full phone.
+
+File is 1.5 MB, still opens from a file path with all 19 images and the inline
+diagram, verified over `file://`.
+
+**Output** — `output/slides.html`, 10 slides, 19 images, 1.5 MB
+
 ---
 
 # Resuming
@@ -2643,6 +2701,7 @@ no amounts or counterparty names.
 | D30 | **The brand guideline stays out of the public repo.** It is a Dassein Design Bureau document reserving all rights and barring reproduction without written permission. The repo is ours to publish; that PDF is not. It is still in `output/` locally | 47 |
 | D31 | ~~The report stays at 21 printed pages~~ — **superseded in 48.** The professor's cap is 15, and pairing the figures got there with nothing removed | 47, 48 |
 | D32 | **Compression lives in `@media print` only.** The browser view keeps full-width screenshots and comfortable type; only the printed form is 15 pages | 48 |
+| D33 | **The deck uses consulting action titles**: the headline states the finding, not the topic, over a rule, with a *so what* banner and a source line | 49 |
 | D23 | Figures are checked against **tool output content**, not merely that a data tool ran | 22 |
 
 ---
@@ -2663,7 +2722,7 @@ no amounts or counterparty names.
 | `web/` | React + Vite + TypeScript front end (Berbeda) |
 | `output/report.html` | The written report, 15 printed letter pages |
 | `output/report.pdf` | The same report printed, so the page count can be checked |
-| `output/slides.html` | Nine-slide reveal.js deck, images embedded |
+| `output/slides.html` | Ten-slide reveal.js deck, all 19 report images embedded |
 | `README.md` | Clone-and-run instructions for the public repo |
 | `output/brand_guideline_front_end.pdf` | BERBEDA brand guideline — **local only**, see D30 |
 
