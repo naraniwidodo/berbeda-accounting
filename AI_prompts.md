@@ -2632,6 +2632,60 @@ loading.
 
 **Output** — `output/slides.html`
 
+## 51 · Submission option: runs locally, and actually tested cold
+
+**Prompt**
+> I need to submit a README file too... 1. Put it online... 2. Make it run
+> locally from a fresh clone. The teaching staff will clone your repo and run it
+> by following your README, step by step. Which one do you think is better?
+> Pick one, I don't mind which one, just make sure it works
+
+**Response**
+
+**Picked option 2, run it locally.** Hosting would mean putting the Portkey key
+on a public URL where anyone who finds it can spend it, on a free tier that may
+sleep exactly when the grading happens. Local exposes no key and has nothing to
+keep alive.
+
+**Then I cloned it cold, and it did not work.**
+
+The trap was invisible from here. `~/.zshrc` exports `PORTKEY_API_KEY`, and
+`load_dotenv` does **not** override a variable that is already in the
+environment. So on this machine the app works regardless of what `.env` says.
+On a machine without that export, `.env.example`'s placeholder counted as a
+real key: `aiConfigured` came back **true**, the UI offered the chatbot, and
+the first question returned a raw `401 Portkey Error: Invalid API Key`.
+
+A teaching assistant following the README exactly would have hit that on their
+first click.
+
+| Fixed | How |
+|---|---|
+| Placeholder counted as a key | `.env.example` ships an empty value, and `agent.py` treats placeholder strings as unset |
+| Raw gateway 401 | `KeyRejected` returns a 401 saying which file to edit |
+| Chat offered itself when it could not answer | The panel asks `/api/health` and says up front that no key is set |
+| Empty journal, so the statements looked broken | `backend/seed_demo.py` posts a year of **invented** data through the real posting rules |
+
+The seed matters more than it sounds. Without it the P&L and the Balance Sheet
+render empty, which reads as broken rather than as new. With it the Balance
+Sheet shows **9,510,000 against 9,510,000, difference 0**, every statement
+section is populated, and one down payment is left open so the Balance Sheet
+carries a Prepayment Client. None of it is Ber.be.da data: the clients, SKUs
+and amounts are made up, because the real figures are confidential.
+
+**Verified on a clean clone with the key hidden:** pip and npm install, API up,
+22 entries seeded, every page loads with **no console errors and no failed
+requests**, and `test_grounding.py` passes **10 of 10 offline**, so the safety
+claim can be checked without a key at all.
+
+The README is now numbered steps with the expected output printed under each
+one, a note that no key is needed, and a troubleshooting table covering the
+port clash, the wrong working directory, the Vite 5174 fallback and how to
+start over.
+
+**Output** — `README.md`, `backend/seed_demo.py`, `.env.example`,
+`backend/agent.py`, `backend/main.py`, `web/src/components/Chat.tsx`
+
 ---
 
 # Resuming
@@ -2748,6 +2802,9 @@ no amounts or counterparty names.
 | D32 | **Compression lives in `@media print` only.** The browser view keeps full-width screenshots and comfortable type; only the printed form is 15 pages | 48 |
 | D33 | **The deck uses consulting action titles**: the headline states the finding, not the topic, over a rule, with a *so what* banner and a source line | 49 |
 | D34 | **The scope diagram and the walkthrough belong to the demo**, not to *what is new* or *how it works* — they open the demonstration rather than argue the design | 50 |
+| D35 | **Submit as a local run, not a hosted link.** Hosting would expose the Portkey key on a public URL and depend on a free tier staying awake through grading | 51 |
+| D36 | **A blank or placeholder key means "not configured"**, so an unedited clone says so politely instead of returning a gateway 401 | 51 |
+| D37 | **Demo data is invented, never Ber.be.da's.** `seed_demo.py` posts through the real rules so the statements have figures to show | 51 |
 | D23 | Figures are checked against **tool output content**, not merely that a data tool ran | 22 |
 
 ---
