@@ -66,6 +66,8 @@ html,body{background:var(--shell)}
 
 /* ── repo chip ──────────────────────────────────────────────── */
 .repo{font-family:var(--num);font-size:.46em;color:var(--deep-teal);margin:0}
+.runs{font-size:.46em;color:var(--soft);line-height:1.45;margin:.7em 0 0;max-width:30em}
+.runs b{color:var(--deep-teal)}
 .repo .tag{font-family:var(--font);font-weight:700;font-size:.92em;letter-spacing:.09em;
   text-transform:uppercase;background:var(--deep-teal);color:#fff;padding:.3em .7em;
   border-radius:5px;margin-right:.7em}
@@ -160,6 +162,7 @@ figure.phone img{border-radius:12px}
   <p class="by"><b>Nur Maharani (Rani)</b><span class="sep"></span>Ber.be.da, a custom painting studio
   in Indonesia<span class="sep"></span>Tsai CITY Accelerator, Yale University</p>
   <p class="repo"><span class="tag">Clone it</span> github.com/naraniwidodo/berbeda-accounting</p>
+  <p class="runs">Runs locally, not from a hosted link. Clone it and follow the README: three steps, about five minutes, and no API key needed to see it work.</p>
   <div class="keyfacts">
     <div><span class="n">12</span><span class="l">features tested on real transactions</span></div>
     <div><span class="n">8</span><span class="l">accounting and finance tools</span></div>
@@ -567,9 +570,10 @@ figure.phone img{border-radius:12px}
     <div>
       <h4>Running it yourself</h4>
       <div class="tools" style="grid-template-columns:1fr">
-        <div class="tool"><code>git clone</code><span>&hellip;/naraniwidodo/berbeda-accounting, then <code>cp .env.example .env</code> and add your own Portkey key. No key is in the repo.</span></div>
-        <div class="tool"><code>uvicorn</code><span><code>main:app --port 8000</code> from <code>backend/</code> &mdash; the API and the chatbot.</span></div>
-        <div class="tool"><code>npm run dev</code><span>from <code>web/</code> &mdash; the site at <code>localhost:5173</code>. The database is created on first run and starts empty.</span></div>
+        <div class="tool"><code>git clone</code><span>&hellip;/naraniwidodo/berbeda-accounting, then <code>cp .env.example .env</code>. Leave the key blank and everything except the chatbot still works.</span></div>
+        <div class="tool"><code>uvicorn</code><span><code>main:app --port 8000</code> from <code>backend/</code>, after <code>pip install -r requirements.txt</code>.</span></div>
+        <div class="tool"><code>npm run dev</code><span>from <code>web/</code> &mdash; the site at <code>localhost:5173</code>.</span></div>
+        <div class="tool"><code>seed_demo.py</code><span>fills the journal with invented demo data, so the P&amp;L and the Balance Sheet have figures.</span></div>
       </div>
     </div>
     <div>
@@ -580,6 +584,7 @@ figure.phone img{border-radius:12px}
         <li><code>AI_prompts.md</code> &mdash; every exchange that built this, with the decisions and the open questions.</li>
       </ul>
       <p class="repo" style="margin-top:12px"><span class="tag">Clone it</span> github.com/naraniwidodo/berbeda-accounting</p>
+      <p class="runs" style="margin-top:8px"><b>It runs locally.</b> Nothing is hosted, so no link can go to sleep before grading, and no API key is needed to mark it.</p>
     </div>
   </div>
 </section>
