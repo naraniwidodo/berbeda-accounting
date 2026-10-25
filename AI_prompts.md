@@ -834,7 +834,7 @@ prompt and chat copy updated, both READMEs
 
 ---
 
-## 22 · Ratios, and the five tools
+## 23 · Ratios, and the five tools
 
 **Prompt**
 > …I want the bot to help the user with financial ratios too (simple ones),
@@ -893,7 +893,7 @@ section on ratios, backend README
 
 ---
 
-## 23 · The chat flow, confirmed
+## 24 · The chat flow, confirmed
 
 **Prompt**
 > …I want to add the chat flow for the bot: [nine steps, Business Owner →
@@ -973,7 +973,7 @@ has no tool that writes, so it names the template and the user clicks it.
 
 ---
 
-## 24 · The flow in main.py, and the key
+## 25 · The flow in main.py, and the key
 
 **Prompt**
 > In main.py, do you think I need to expose a chat flow (the one I typed) in
@@ -1006,7 +1006,7 @@ a tool actually returned.
 
 ---
 
-## 25 · The run command
+## 26 · The run command
 
 **Prompt**
 > Make sure the backend runs. I think you should follow this:
@@ -1040,7 +1040,7 @@ Cleared the test entry afterwards.
 
 ---
 
-## 26 · Undo, and downloads by period
+## 27 · Undo, and downloads by period
 
 **Prompt**
 > 1. There should be an undo button for a journal entry that is submitted …
@@ -1097,7 +1097,7 @@ Reset the journal afterwards.
 
 ---
 
-## 27 · UAT round 1 — sales recognition
+## 28 · UAT round 1 — sales recognition
 
 **Prompt**
 > Okay I got some inputs already, document this in the md file & also in
@@ -1160,7 +1160,7 @@ registry-fed SKU dropdown, fourth Home tile, nav
 
 ---
 
-## 28 · UAT round 1, continued — naming and retiring
+## 29 · UAT round 1, continued — naming and retiring
 
 **Prompt**
 > 1. …rename the "Down Payment received" to "Sales - Down Payment"
@@ -1210,7 +1210,7 @@ the form, `output/transaction_template.md` and
 
 ---
 
-## 29 · UAT round 2 — purchase references
+## 30 · UAT round 2 — purchase references
 
 **Prompt**
 > Okay I just finished looking at the B section (purchases) and do UAT. Add
@@ -1255,7 +1255,7 @@ export columns, `output/user_acceptability_test.md`
 
 ---
 
-## 30 · UAT round 3 — Sales down to three
+## 31 · UAT round 3 — Sales down to three
 
 **Prompt**
 > …we should only have "A1 Sales Down Payment", "A4 - Sales Down Payment Final
@@ -1311,7 +1311,7 @@ doc updated
 
 ---
 
-## 31 · UAT round 4 — tax wording, and Home type
+## 32 · UAT round 4 — tax wording, and Home type
 
 **Prompt**
 > Nothing major for part C… For part D, you should change the "Source of
@@ -1351,7 +1351,7 @@ suggestions, tile typography, UAT doc
 
 ---
 
-## 32 · UAT cycle 1 closed
+## 33 · UAT cycle 1 closed
 
 **Prompt**
 > Got it. I'll think of it later, save everything for me, I need to be away.
@@ -1383,7 +1383,7 @@ correct-but-incomplete rather than wrong.
 
 ---
 
-## 33 · Token logging, and the crash it was hiding
+## 34 · Token logging, and the crash it was hiding
 
 **Prompt**
 > Hey, I am trying to add a client entry there, but it won't save. Can you
@@ -1427,7 +1427,7 @@ Each needed the thing in front of it fixed before it could show itself.
 
 ---
 
-## 34 · Manual entries had no route to the server
+## 35 · Manual entries had no route to the server
 
 **Prompt**
 > Okay I tried to do 1 journal entry for Manual Entry, but it's not working.
@@ -1474,7 +1474,7 @@ of this bug.
 
 ---
 
-## 35 · Month filter on the statements
+## 36 · Month filter on the statements
 
 **Prompt**
 > I just open Balance Sheet and P&L. I think you should make a filter where I
@@ -1513,7 +1513,7 @@ the month.
 
 ---
 
-## 36 · Running token totals
+## 37 · Running token totals
 
 **Prompt**
 > *(pasted: `global total_input_tokens…` with per-call and cumulative prints)*
@@ -1552,7 +1552,7 @@ the others: 8,147 of those 14,595 input tokens were served from cache.
 
 ---
 
-## 37 · What a run actually costs
+## 38 · What a run actually costs
 
 **Prompt**
 > How many tokens does one typical run use (input, cached input, output)?
@@ -1612,20 +1612,20 @@ per user per month: **$0.016/user/mo**, $1.59/mo for 100 users, **$159/mo for
 
 **Caveat** — n=6, one session, one machine. The cache hit rate is high partly
 *because* the calls were back to back; a cold first call pays much more of its
-input at full price (see entry 40 — the first call ever made cached only
+input at full price (see entry 41 — the first call ever made cached only
 45.5%, against 91.7% once warm).
 
 **Output** — measurement only, no app code changed
 
 ---
 
-## 38 · Confirming the free paths are actually free
+## 39 · Confirming the free paths are actually free
 
 **Prompt**
 > Input 8 journal entries and downloaded twice — that means no cost, right?
 
 **Yes, and the counter proves it.** `GET /api/usage` still reads `calls: 8`
-— the 2 from entry 36 plus the 6 measured in entry 37, and nothing since.
+— the 2 from entry 37 plus the 6 measured in entry 38, and nothing since.
 Input tokens reconcile exactly (14,595 + 40,657 = 55,252), so not a single
 model call was made while those entries were saved and the files downloaded.
 
@@ -1645,7 +1645,7 @@ free.
 
 ---
 
-## 39 · Seven real questions, watched live
+## 40 · Seven real questions, watched live
 
 **Prompt**
 > Let me use the chatbot now and you watch what it costs.
@@ -1667,7 +1667,7 @@ rather than a scripted benchmark.
 **Whole session: $0.002016 — about Rp 33 for seven questions.**
 
 **The scripted benchmark was optimistic.** Real mean is $0.000288/run against
-$0.000159 in entry 37 — **1.8x**. But the medians are close ($0.000175 vs
+$0.000159 in entry 38 — **1.8x**. But the medians are close ($0.000175 vs
 $0.000129), so it is not that every question is dearer; it is that real ones
 have a long tail. Question 4 alone used 41,800 input tokens, 6x the median,
 almost certainly a multi-tool chain where the whole prompt is re-sent on each
@@ -1688,7 +1688,7 @@ is the honest ceiling.
 **Cache held up** at 91.4%, almost exactly the scripted 91.6% — so the saving
 is real and not an artefact of running calls back to back.
 
-**Revision to entry 37's "the cap never binds".** It still did not bind, but
+**Revision to entry 38's "the cap never binds".** It still did not bind, but
 the margin shrank: Q4 produced 270 tokens against the 400 cap — **68%**, where
 the scripted worst case was 23%. One more step in a chain like that and it
 truncates. The claim is now "has not truncated yet", not "cannot".
@@ -1697,7 +1697,7 @@ truncates. The claim is now "has not truncated yet", not "cannot".
 
 ---
 
-## 40 · Which calls were cached — all fifteen
+## 41 · Which calls were cached — all fifteen
 
 **Prompt**
 > Of those questions, which ones hit cache?
@@ -1728,10 +1728,10 @@ warms up. Call 1 is the cheapest call on the sheet in tokens and nearly the
 dearest in money — 5,598 tokens for $0.000359, where call 9 did roughly the
 same work for $0.000110, a third of the price.
 
-**Correction to entry 37.** That entry's caveat said the first call showed
+**Correction to entry 38.** That entry's caveat said the first call showed
 *zero* cached. Wrong — it cached 45.5%. Reconstructing calls 1 and 2 from the
 entry-36 log line gives call 1 at 2,547 of 5,598. The caveat's point stands
-(a cold call costs more) but the figure was overstated; entry 37 has been
+(a cold call costs more) but the figure was overstated; entry 38 has been
 corrected in place.
 
 **What this means for the cost model.** The $0.000288 mean is a *warm-cache*
@@ -1739,11 +1739,11 @@ figure. A real deployment where users arrive scattered through the day pays
 cold-start prices far more often than this session did, so treat $0.000288 as
 a floor and something nearer call 1's $0.000359 as the pessimistic end.
 
-**Output** — measurement only; entry 37 caveat corrected
+**Output** — measurement only; entry 38 caveat corrected
 
 ---
 
-## 41 · Where the money actually goes — and my wrong guess
+## 42 · Where the money actually goes — and my wrong guess
 
 **Prompt**
 > How do I make it more efficient? You said `compare_financial_periods` and
@@ -1813,7 +1813,7 @@ of its size and worth 2.5x more to trim, because they are fresh every time.
 
 ---
 
-## 42 · `cached` is a hop counter in disguise — call 12 solved
+## 43 · `cached` is a hop counter in disguise — call 12 solved
 
 **Prompt**
 > Why does the cache keep getting bigger?
@@ -1821,7 +1821,7 @@ of its size and worth 2.5x more to trim, because they are fresh every time.
 It does not accumulate across calls — each row is that call alone. What makes
 it large is that **the base prompt is re-read on every hop inside a single
 turn, and every re-read is counted again as cached tokens**. So dividing
-`cached` by the 2,761-token base recovers the hop count that entry 41 could
+`cached` by the 2,761-token base recovers the hop count that entry 42 could
 not find:
 
 | Call | input | cached | cache % | cached ÷ 2,761 | hops |
@@ -1844,7 +1844,7 @@ not find:
 
 **Call 12 ran ~14 hops.** Entry 41 estimated ~15 from input tokens and could
 not confirm it; this confirms it from a second direction. Everything else sat
-at 2-3, and the four-tool stress test in entry 41 needed only 2. Fourteen is
+at 2-3, and the four-tool stress test in entry 42 needed only 2. Fourteen is
 not a complex question — it is a loop, either sequential chaining or
 `retries=2` re-running a failing tool.
 
@@ -1855,112 +1855,14 @@ questions simply carried more new content (fresh 874-1,087 against call 9's
 
 **Useful because it is free.** `cached ÷ 2,761 ≈ hops` needs no new logging —
 `GET /api/usage` already returns `cached_tokens`. Any call over ~4 is worth
-looking at, which makes the `request_limit=4` cap from entry 41 look
+looking at, which makes the `request_limit=4` cap from entry 42 look
 well-sized rather than arbitrary.
 
 **Output** — analysis only, no app code changed
 
 ---
 
-## 43 · Instagram DMs and daily ad spend — what is actually reachable
-
-**Prompt**
-> Can you pull the number of DMs coming in from the Instagram account and the
-> amount of ad money spent that day?
-
-Two different asks that look like one. Checked the session's connectors and
-the ledger before answering.
-
-**DM count — no.** There is no Instagram or Meta connector in this session,
-and nothing in the project talks to one: the only Instagram in the codebase
-is the profile link in `web/src/components/Footer.tsx` and the `4K+` follower
-figure hard-coded in `web/src/pages/CompanyProfile.tsx`. Reaching DMs would
-need the Instagram Graph API — a Business/Creator account linked to a
-Facebook Page, an app with `instagram_manage_messages`, App Review, and a
-long-lived token. Even then the API returns conversations and messages, not
-a daily count; the count would have to be derived, and the message window is
-limited.
-
-**Ad spend — depends which number.** Spend as Meta reports it needs the
-Marketing API, same credential problem. Spend as *Berbeda recorded it* is
-already in the ledger and needs no API at all: `Marketing` → `Ads` is a valid
-account/detail pair in `accounts.json`, template `B5` posts to it, and a
-daily figure is one query:
-
-```sql
-SELECT e.date, SUM(l.amount)
-FROM lines l JOIN entries e ON e.id = l.entry_id
-WHERE l.account = 'Marketing' AND l.detail = 'Ads' AND e.voided_at IS NULL
-GROUP BY e.date;
-```
-
-Run today it returns nothing — the database holds 9 entries (2026-01-01 to
-2026-10-24) and not one of them is an ad purchase. The path exists; the data
-has not been entered.
-
-**The honest shape of it.** The ledger can answer "what did we book for ads
-on this date". It cannot answer "how many DMs came in", and it cannot
-reconcile booked spend against what Meta actually charged. A DMs-per-day
-number next to a cost-per-day number is a marketing dashboard, not an
-accounting system, and this project is the second one.
-
-**Output** — no code changed; capability answered
-
----
-
-## 44 · Connecting the IG account for real — what each half costs
-
-**Prompt**
-> hey, kalau aku mau connectin kamu ke akun IG supaya kamu bisa tarik jumlah
-> DM & jumlah uang ads yang kespend, bisa gak?
-
-Follow-up to 43, and a different question: not "can you reach it" but "if I
-wire it up properly, can you". Searched the session's MCP connector registry
-first — `instagram`, `meta`, `facebook`, `ads`, `social media`, `messages`
-all return nothing usable. There is no one-click path, and no login I can
-perform; the only route is Berbeda's own Meta app with its own tokens.
-
-**Ad spend — yes, and cheaply.** Marketing API, `GET act_<id>/insights` with
-`time_increment=1` for a daily series. Scope `ads_read`. Token from a
-**System User** in Business Settings with the ad account assigned to it as
-an asset — that token does not expire, unlike the ~60-day long-lived user
-token. While the app stays in Development mode this works on Berbeda's own
-ad account with **no App Review**, which is the whole unlock. Realistically
-an afternoon: app + system user + token in `../.env`, one backend module,
-one endpoint.
-
-**DM count — technically yes, practically no.** Needs the IG account as
-Business/Creator linked to a Facebook Page, `instagram_basic` +
-`instagram_manage_messages` + `pages_manage_metadata` (named
-`instagram_business_manage_messages` under the newer Instagram Login path —
-confirm which the app uses), an app owned by a **verified business**, and
-App Review for Advanced Access. Two harder problems sit behind the
-paperwork:
-
-- there is no count field — `/conversations` is a list, capped at 100 per
-  page, tallied by paging;
-- it returns *conversations with an `updated_time`*, not messages per day,
-  and Requests-folder threads idle 30+ days drop out entirely. A truthful
-  "DMs received on 14 Oct" cannot be reconstructed backwards. It needs a
-  **webhook** counting messages as they arrive, from the day it is switched
-  on forward.
-
-**The accounting angle, which 43 undersold.** A DM count is a marketing
-metric and stays out of scope. But Meta's *actual* daily charge is an
-external statement, and comparing it against what Berbeda booked to
-`Marketing` → `Ads` (template `B5`) is reconciliation — the same shape as a
-bank statement, and squarely this project's business. That is the half worth
-building.
-
-**Cheap alternative offered** — Ads Manager exports a daily-spend CSV and
-the IG inbox count can be read off by hand; both can be dropped in without
-any API work at all.
-
-**Output** — no code changed; connectors searched, feasibility split by half
-
----
-
-## 37 · Usage limits, and what they are not
+## 44 · Usage limits, and what they are not
 
 **Prompt**
 > Anyway I just had an idea. Can you also put token measurement in the
@@ -2015,7 +1917,7 @@ and limits in `/api/usage`, backend README
 
 ---
 
-## 38 · Token usage in the chat panel
+## 45 · Token usage in the chat panel
 
 **Prompt**
 > Yes, show the token usage in the chat panel.
@@ -2054,7 +1956,7 @@ chat reply, readouts and styles in `Chat.tsx`, `web/README.md`
 
 ---
 
-## 39 · The HTML report
+## 46 · The HTML report
 
 **Prompt**
 > I am going to write down some 10 - 15 pages of HTML report … format will be
@@ -2102,7 +2004,7 @@ and arguments were split onto separate lines.
 
 ---
 
-## 40 · Report revisions
+## 47 · Report revisions
 
 **Prompt**
 > 1. Leave it at 8, please make sure my report says so
@@ -2148,7 +2050,7 @@ Report now 2,734 words across eight sections, five tables, fifteen slides.
 
 ---
 
-## 41 · Slides were not showing
+## 48 · Slides were not showing
 
 **Prompt**
 > Hey, why is it showing like this? I really need you to put my slides there
@@ -2191,7 +2093,7 @@ are there if the slides need re-cropping.
 
 ---
 
-## 42 · Plain English, alignment, and the Instagram photo
+## 49 · Plain English, alignment, and the Instagram photo
 
 **Prompt**
 > 1. I don't like the way you write the report in word choice. You should use
@@ -2231,7 +2133,7 @@ Report is now 16 embedded images and 1.2 MB, still self-contained.
 
 ---
 
-## 43 · Evidence for the grounding check and the limits
+## 50 · Evidence for the grounding check and the limits
 
 **Prompt**
 > 1. Ground_check -> Can you help me doing this?
@@ -2290,7 +2192,7 @@ README, evidence sections in `output/report.html`, new cover sentence
 
 ---
 
-## 44 · The professor's question, answered honestly
+## 51 · The professor's question, answered honestly
 
 **Prompt**
 > 1. Can you add the 1 slide I attach above in my HTML report? Add it in the
@@ -2337,7 +2239,7 @@ Section 6, new test and README entry
 
 ---
 
-## 45 · Step-by-step walkthrough slide
+## 52 · Step-by-step walkthrough slide
 
 **Prompt**
 > Attach this slide in the HTML report too. Put it in Section 4, right after
@@ -2361,7 +2263,7 @@ Slide order in Section 4 is now `01, 1a, 02 … 13`.
 
 ---
 
-## 46 · Safety slide, one defence shown working
+## 53 · Safety slide, one defence shown working
 
 **Prompt**
 > Add this slide in the Safety section, in the end of the section. This is to
@@ -2391,7 +2293,7 @@ Tokenomics.
 
 **Output** — `slide-safety.webp` embedded at the end of Section 6
 
-## 47 · Live on GitHub, report length, and the slide deck
+## 54 · Live on GitHub, report length, and the slide deck
 
 **Prompt**
 > Now do me three favors: 1. Important: Make the site live in GitHub! Use API
@@ -2481,7 +2383,7 @@ things the render caught that reading the code would not have:
 **Output** — `output/slides.html` (9 slides, 661 KB), `README.md`,
 `.env.example`, `output/report.html` at 21 printed pages
 
-## 48 · The 15-page cap
+## 55 · The 15-page cap
 
 **Prompt**
 > Trim to 15, that's a cap from my professor. You can reduce the font size &
@@ -2529,7 +2431,7 @@ cap.
 
 **Output** — `output/report.html` at 15 printed pages, `output/report.pdf`
 
-## 49 · The deck, rebuilt in consulting format
+## 56 · The deck, rebuilt in consulting format
 
 **Prompt**
 > 1. Do you know McKinsey formatting style? Maybe can you do it like that, but
@@ -2587,7 +2489,7 @@ diagram, verified over `file://`.
 
 **Output** — `output/slides.html`, 10 slides, 19 images, 1.5 MB
 
-## 50 · Deck revisions: prose, slide placement and lead-ins
+## 57 · Deck revisions: prose, slide placement and lead-ins
 
 **Prompt** — eleven revisions to `slides.html`: drop a key fact; add an
 introductory sentence and rename *Part* to *Problem* on slide 2; write the
@@ -2632,7 +2534,7 @@ loading.
 
 **Output** — `output/slides.html`
 
-## 51 · Submission option: runs locally, and actually tested cold
+## 58 · Submission option: runs locally, and actually tested cold
 
 **Prompt**
 > I need to submit a README file too... 1. Put it online... 2. Make it run
@@ -2686,7 +2588,7 @@ start over.
 **Output** — `README.md`, `backend/seed_demo.py`, `.env.example`,
 `backend/agent.py`, `backend/main.py`, `web/src/components/Chat.tsx`
 
-## 52 · The TA's test scenarios in the README
+## 59 · The TA's test scenarios in the README
 
 **Prompt** — the author's own eight test scenarios, written out, to be added to
 the README so the teaching team knows how to exercise the app: client
@@ -2734,6 +2636,63 @@ works now.
 
 **Output** — `README.md`
 
+## 60 · Pruning the log, and a key audit
+
+**Prompt**
+> I think yesterday I did another project accidentally in this Project
+> feasibility & berbeda-accounting folders. I think maybe my prompts are there
+> and recorded in the MD file. Can you make sure that only prompts for "Project
+> feasibility assessment" (literally this chat only) there in the Prompt MD?
+> Can you make sure I don't submit any .env that contains my API key to my
+> professor & TA? Add it as .env.example I guess & don't give the key
+
+**Response**
+
+**Two exchanges did not belong here, and they are gone.** The old 43 and 44
+were about pulling Instagram DM counts and daily ad spend, and about connecting
+an Instagram account through the Graph and Marketing APIs. Nothing to do with
+the accounting system. Removed: 98 lines.
+
+Everything else in the log is this project. The Instagram mentions that remain
+are the brand ones, `@ber.be.da` and the Company Profile photo, which belong.
+
+**Two numbering defects surfaced while checking, both older than the stray
+exchanges.** Two different exchanges were both numbered 22, and the log then
+restarted at 37 while 37 to 42 were already in use, so eight numbers pointed at
+two places each. Renumbered end to end: **59 exchanges, 01 to 59, strictly
+sequential, no duplicates.**
+
+Renumbering is only safe if every reference moves with it, so all of them were
+rewritten and then checked: 26 rows of the decisions table, 11 in-text `entry
+NN` references, and `superseded in 48`. **No dangling references remain** —
+every number a decision cites resolves to an exchange that exists. The
+decisions table also carried **two rows both labelled D23**; they were the same
+decision stated twice, so they are merged into one with the sharper wording.
+
+One stale pointer fixed in passing: *Resuming* told the reader to re-seed "with
+the script noted in exchange 22", which lived in a session scratchpad and is
+gone. It now points at `backend/seed_demo.py`, which is committed.
+
+**The key audit found nothing exposed, at four levels.**
+
+| Checked | Result |
+|---|---|
+| `.env` tracked by git | Never. No `.env` has been added in any commit |
+| `.env` in the project folder | Does not exist. The key is read from the folder above, which is outside the repository |
+| The key string in the working tree | Appears in no file |
+| The key string in **git history** | Appears in no blob of any commit |
+| Paths ever in history matching `.env`, `secret`, `credential`, `.key`, `.pem` | Only `.env.example` |
+| `.env.example` as published | `PORTKEY_API_KEY=` with nothing after it |
+
+History mattered more than the working tree. Deleting a secret from a file does
+not remove it from the repository, because every old commit still carries the
+blob. It was worth proving rather than assuming.
+
+Twelve other `.env` files sit in the coursework folders beside this one. **None
+is inside a git repository**, so none can be pushed by accident.
+
+**Output** — `AI_prompts.md`
+
 ---
 
 # Resuming
@@ -2762,8 +2721,8 @@ Then <http://localhost:5173>. API docs at <http://127.0.0.1:8000/docs>.
 
 The journal is **empty on purpose** — the entries from testing were cleared so
 no invented figures are mistaken for real ones. To see the ratio and
-comparison tools work, post a few entries, or re-seed with the script noted in
-exchange 22.
+comparison tools work, post a few entries, or run `backend/seed_demo.py`,
+which fills a year with invented demo data through the real posting rules.
 
 **Where it stands**
 
@@ -2816,17 +2775,17 @@ no amounts or counterparty names.
 
 | # | Decision | Set in |
 |---|---|---|
-| D1 | AI **proposes**, user **confirms** — no silent autonomous posting | 02 |
-| D2 | Out of scope: multi-currency, tax computation, depreciation, multi-user, bank reconciliation | 02 |
-| D3 | The four registers are **source registers**, not ledgers; the Journal is the single source of truth | 03 |
-| D4 | Posting logic is a **rules engine**; AI is limited to picking the detail sub-category | 03 |
-| D5 | Sales are a **4-stage lifecycle bound to a SKU**, not isolated entries | 04 |
-| D6 | **Lock the period, not the statement** — P&L and BS freeze together | 04 |
-| D7 | `A4` **auto-fills** the `Prepayment Client` line from the open DP; it has no input field | 04 |
-| D8 | **Three squares.** Ledger becomes click-through from statement lines; open items live on the Journal page | 05 |
-| D9 | **Settlement toggle** instead of separate templates per credit side | 06 |
-| D10 | **No database, no migration.** Templates and the engine are the project core | 07 |
-| D11 | The source workbook is **confidential and never stored** in the project; only derived artifacts are kept | 09 |
+| D1 | AI **proposes**, user **confirms** — no silent autonomous posting | 2 |
+| D2 | Out of scope: multi-currency, tax computation, depreciation, multi-user, bank reconciliation | 2 |
+| D3 | The four registers are **source registers**, not ledgers; the Journal is the single source of truth | 3 |
+| D4 | Posting logic is a **rules engine**; AI is limited to picking the detail sub-category | 3 |
+| D5 | Sales are a **4-stage lifecycle bound to a SKU**, not isolated entries | 4 |
+| D6 | **Lock the period, not the statement** — P&L and BS freeze together | 4 |
+| D7 | `A4` **auto-fills** the `Prepayment Client` line from the open DP; it has no input field | 4 |
+| D8 | **Three squares.** Ledger becomes click-through from statement lines; open items live on the Journal page | 5 |
+| D9 | **Settlement toggle** instead of separate templates per credit side | 6 |
+| D10 | **No database, no migration.** Templates and the engine are the project core | 7 |
+| D11 | The source workbook is **confidential and never stored** in the project; only derived artifacts are kept | 9 |
 | D12 | **No monetary figures in any document.** Record the structural finding and the rule it produced, never the amount | 10 |
 | D13 | Front end is **React + Vite + TypeScript** in `web/`; the engine is ported to TypeScript rather than called over an API | 12 |
 | D14 | **White carries the layout**; brand colour is for chrome and accents only. Body type Calibri-metric, Anton for display | 12 |
@@ -2838,23 +2797,23 @@ no amounts or counterparty names.
 | D20 | **`check_grounding` refuses invented figures on the way out** — allowed only from a financial tool or the user's own question | 21 |
 | D21 | The helper has **no tool that writes**. Posting, cancelling and locking stay on the pages | 21 |
 | D22 | The browser previews with `engine.ts` but **posts inputs, not lines** — the server is the authority | 21 |
-| D23 | The helper **may read financial data through tools**, and every figure is checked against what those tools returned | 22 |
-| D24 | **`A1` books deposit, revenue and invoice in one entry** — matching the source ledger, where 20 of 21 projects post all three on one date | 27 |
-| D25 | **A project must be registered before it can be journalled.** SKUs are a dropdown, never free text; a SKU cannot be renamed and one with entries cannot be removed | 27 |
-| D26 | **`A6` and `A7` retired.** With `A1` combined, `A6` would double-count revenue and `A7`'s case cannot occur | 28 |
-| D27 | **Invoice number and source of payment are structured columns**, on the twelve templates whose source registers carry them; sales are not asked | 29 |
-| D28 | **Sales is three templates.** Revenue is recognised on payment — by `A1` or `A5`, never again at `A4`, which would double-count it | 30 |
-| D29 | **Reference-field labels and suggestions are per template group**, so tax never offers a marketplace | 31 |
-| D30 | **The brand guideline stays out of the public repo.** It is a Dassein Design Bureau document reserving all rights and barring reproduction without written permission. The repo is ours to publish; that PDF is not. It is still in `output/` locally | 47 |
-| D31 | ~~The report stays at 21 printed pages~~ — **superseded in 48.** The professor's cap is 15, and pairing the figures got there with nothing removed | 47, 48 |
-| D32 | **Compression lives in `@media print` only.** The browser view keeps full-width screenshots and comfortable type; only the printed form is 15 pages | 48 |
-| D33 | **The deck uses consulting action titles**: the headline states the finding, not the topic, over a rule, with a *so what* banner and a source line | 49 |
-| D34 | **The scope diagram and the walkthrough belong to the demo**, not to *what is new* or *how it works* — they open the demonstration rather than argue the design | 50 |
-| D35 | **Submit as a local run, not a hosted link.** Hosting would expose the Portkey key on a public URL and depend on a free tier staying awake through grading | 51 |
-| D36 | **A blank or placeholder key means "not configured"**, so an unedited clone says so politely instead of returning a gateway 401 | 51 |
-| D37 | **Demo data is invented, never Ber.be.da's.** `seed_demo.py` posts through the real rules so the statements have figures to show | 51 |
-| D38 | **The README carries the author's own test scenarios**, with on-screen labels rather than remembered ones, so a grader can post an entry by hand instead of only reading seeded data | 52 |
-| D23 | Figures are checked against **tool output content**, not merely that a data tool ran | 22 |
+| D23 | The helper **may read financial data through tools**, and every figure is checked against **what those tools actually returned**, not merely against the fact that a data tool ran | 22, 23 |
+| D24 | **`A1` books deposit, revenue and invoice in one entry** — matching the source ledger, where 20 of 21 projects post all three on one date | 28 |
+| D25 | **A project must be registered before it can be journalled.** SKUs are a dropdown, never free text; a SKU cannot be renamed and one with entries cannot be removed | 28 |
+| D26 | **`A6` and `A7` retired.** With `A1` combined, `A6` would double-count revenue and `A7`'s case cannot occur | 29 |
+| D27 | **Invoice number and source of payment are structured columns**, on the twelve templates whose source registers carry them; sales are not asked | 30 |
+| D28 | **Sales is three templates.** Revenue is recognised on payment — by `A1` or `A5`, never again at `A4`, which would double-count it | 31 |
+| D29 | **Reference-field labels and suggestions are per template group**, so tax never offers a marketplace | 32 |
+| D30 | **The brand guideline stays out of the public repo.** It is a Dassein Design Bureau document reserving all rights and barring reproduction without written permission. The repo is ours to publish; that PDF is not. It is still in `output/` locally | 54 |
+| D31 | ~~The report stays at 21 printed pages~~ — **superseded in 55.** The professor's cap is 15, and pairing the figures got there with nothing removed | 54, 55 |
+| D32 | **Compression lives in `@media print` only.** The browser view keeps full-width screenshots and comfortable type; only the printed form is 15 pages | 55 |
+| D33 | **The deck uses consulting action titles**: the headline states the finding, not the topic, over a rule, with a *so what* banner and a source line | 56 |
+| D34 | **The scope diagram and the walkthrough belong to the demo**, not to *what is new* or *how it works* — they open the demonstration rather than argue the design | 57 |
+| D35 | **Submit as a local run, not a hosted link.** Hosting would expose the Portkey key on a public URL and depend on a free tier staying awake through grading | 58 |
+| D36 | **A blank or placeholder key means "not configured"**, so an unedited clone says so politely instead of returning a gateway 401 | 58 |
+| D37 | **Demo data is invented, never Ber.be.da's.** `seed_demo.py` posts through the real rules so the statements have figures to show | 58 |
+| D38 | **The README carries the author's own test scenarios**, with on-screen labels rather than remembered ones, so a grader can post an entry by hand instead of only reading seeded data | 59 |
+| D39 | **The log holds this project only.** Exchanges from another project were removed, and the numbering was repaired end to end with every cross-reference moved with it | 60 |
 
 ---
 
