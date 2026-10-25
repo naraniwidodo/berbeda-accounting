@@ -337,6 +337,11 @@ API is running.
 
 ## Notes
 
+- **Both HTML files are self-contained.** Double-click either one and it opens
+  with every screenshot showing, on any computer, with or without an internet
+  connection. The screenshots, the diagram, the Anton typeface and reveal.js
+  are all embedded in the file itself. `slides.html` bundles reveal.js 5.1.0,
+  which is MIT licensed, Copyright Hakim El Hattab.
 - The model is pinned to `gpt-6-luna`. See [`AGENTS.md`](AGENTS.md).
 - `backend/berbeda.db` and `.env` are gitignored. The repository holds no
   business data and no key.
