@@ -2587,6 +2587,51 @@ diagram, verified over `file://`.
 
 **Output** — `output/slides.html`, 10 slides, 19 images, 1.5 MB
 
+## 50 · Deck revisions: prose, slide placement and lead-ins
+
+**Prompt** — eleven revisions to `slides.html`: drop a key fact; add an
+introductory sentence and rename *Part* to *Problem* on slide 2; write the
+problems as prose rather than bullets, keeping the connecting words; move the
+Introduction and walkthrough slides out of *what is new* and *how it works*
+and onto the demo page as its first two exhibits; add lead-in sentences before
+the exhibits on slides 6, 7 and 8; remove the *Still open* box from slide 8.
+
+**Response**
+
+All eleven done, and checked by reading the rendered slides back rather than
+by eye: fifteen assertions over the live DOM, all passing.
+
+**The prose rewrite was the real one.** Bullets let you drop the joins between
+ideas, which is exactly what the instruction was about. The two problems are
+now paragraphs that carry *because of that*, *meanwhile*, *as a result* and
+*also*, so the reasoning runs instead of being listed.
+
+**Placement.** Both moved slides were misfiled, and the reason is worth
+recording: they are not claims about the design, they are the start of the
+demonstration. The scope diagram says what the system covers and the
+walkthrough shows the three steps every later test repeats, so the demo page
+now reads *scope → one run → the twelve checks*, and the feature grid went
+from 5 × 3 to 6 × 2 to make room.
+
+**Lead-ins.** A screenshot dropped beside a table makes the reader work out
+why it is there. Each of the three now has a sentence above it saying what it
+shows and why, taken from the report's own captions rather than invented.
+
+**One thing I did not simply delete.** Removing the *Still open* box takes the
+prompt injection gap off the safety slide. That gap is real and it is the one
+open item in Section 6, so it still stands on the last slide as *First job:
+test the app against attacks*, and in the report. Flagged rather than quietly
+dropped.
+
+Also moved: *four of the five pages use no AI at all* came off the title slide
+as asked, but it is the reason the running cost is what it is, so it now sits
+on *how it works*, where the claim is argued.
+
+10 slides, 19 images, 1.5 MB, still opens from a file path with everything
+loading.
+
+**Output** — `output/slides.html`
+
 ---
 
 # Resuming
@@ -2702,6 +2747,7 @@ no amounts or counterparty names.
 | D31 | ~~The report stays at 21 printed pages~~ — **superseded in 48.** The professor's cap is 15, and pairing the figures got there with nothing removed | 47, 48 |
 | D32 | **Compression lives in `@media print` only.** The browser view keeps full-width screenshots and comfortable type; only the printed form is 15 pages | 48 |
 | D33 | **The deck uses consulting action titles**: the headline states the finding, not the topic, over a rule, with a *so what* banner and a source line | 49 |
+| D34 | **The scope diagram and the walkthrough belong to the demo**, not to *what is new* or *how it works* — they open the demonstration rather than argue the design | 50 |
 | D23 | Figures are checked against **tool output content**, not merely that a data tool ran | 22 |
 
 ---
