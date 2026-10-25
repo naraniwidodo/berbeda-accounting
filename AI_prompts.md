@@ -2391,9 +2391,103 @@ Tokenomics.
 
 **Output** — `slide-safety.webp` embedded at the end of Section 6
 
+## 47 · Live on GitHub, report length, and the slide deck
+
+**Prompt**
+> Now do me three favors: 1. Important: Make the site live in GitHub! Use API
+> portkey in .env somewhere in this computer. Ask me if you are confused, give
+> me the link after this. Make sure people can clone that site, this is to help
+> the teaching team grade this assignment. Make sure to put that link in the
+> HTML report & in the slide I want you to create 2. Make sure those HTML
+> report file is following this format: The page count is for a normal printed
+> page (letter size, regular font, screenshots included). 3. Make me a slide
+> deck called slides.html using reveal.js, loaded from a CDN. 10 slides max,
+> following the outline in my report. Put my screenshots and diagram right
+> inside the file so it still works when emailed to someone. Use a clean design
+> with big text and the same colors as my app.
+
+**Response**
+
+**1 · The repository is live and public.**
+
+<https://github.com/naraniwidodo/berbeda-accounting> — branch `main`.
+
+Before pushing, checked what should not travel:
+
+| Kept out | Why |
+|---|---|
+| `.env` | Holds the real `PORTKEY_API_KEY` |
+| `berbeda.db`, `backend/berbeda.db` | Journal data |
+| `.venv/`, `node_modules/` | Build artifacts |
+| `output/brand_guideline_front_end.pdf` | **Not ours to publish** — see D30 |
+
+Added `README.md` with the two commands to run it, and `.env.example` carrying
+a placeholder and no key. One real code change was needed: `agent.py` looked
+for `.env` one level **above** the project, which is where it sits on this
+machine but nowhere a clone would find it. It now checks the project root
+first and falls back to the old location, so a clone works once the grader
+drops their own key in.
+
+The link is on the report cover and on two slides of the deck.
+
+**2 · Page count.**
+
+Measured properly rather than guessed: rendered to a real letter PDF and
+counted the pages.
+
+| Change | Pages |
+|---|---|
+| Starting point | 30 |
+| Tighter figure and table density | 25 |
+| Sections flow instead of each starting a new page | 23 |
+| 10pt body, 1.42 line height, 0.65in margins | **21** |
+
+Then split the measurement to see what is actually long: **prose, tables and
+code come to about 15 pages; the 18 screenshots add about 6.** So the
+remaining gap to 10–15 is content, not formatting.
+
+Tried the obvious formatting answer — the twelve "it works" screenshots placed
+two to a row — which reached 19 pages. **Reverted it.** At half width the text
+inside each slide turns to a grey blur, and the instruction in 52 was *"don't
+blur it"*. Cutting six pages of prose instead would mean removing the evidence
+tables, the code blocks, or the UAT findings, all of which were asked for.
+Left at 21 and raised it rather than deciding alone.
+
+**3 · `output/slides.html` — nine slides.**
+
+Follows the report outline: title, the problem, what is new, how the agent
+works, demo, cost, safety, impact, what is next.
+
+| Choice | Reason |
+|---|---|
+| reveal.js 5.1 from jsDelivr | As asked |
+| Seven screenshots as base64 WebP | Opens from an email attachment with no folder beside it — verified over `file://` |
+| The flow diagram copied in as inline SVG | Stays sharp at any projector size; costs nothing |
+| Anton for headings, Calibri for body, the app's own palette | Same stack and the same hex values as `report.html` and the front end |
+| 661 KB total | Small enough to email |
+
+Every slide was rendered at 1280×720 and measured against the frame. Three
+things the render caught that reading the code would not have:
+
+* reveal copies a slide's classes onto its `.slide-background` element, so the
+  title slide's teal rule was also painting a full-height bar down the left
+  edge of the screen. Scoped the selector to the section.
+* The Instagram grid is portrait (738×1304) and overflowed the slide. Cropped
+  to its top two rows.
+* The demo screenshots are all 16:9. In a full-width two-column grid they
+  letterboxed into thin strips, so the grid is now sized to their aspect and
+  the caveat sits in the gutter beside them.
+
+**Output** — `output/slides.html` (9 slides, 661 KB), `README.md`,
+`.env.example`, `output/report.html` at 21 printed pages
+
 ---
 
 # Resuming
+
+The project is public at <https://github.com/naraniwidodo/berbeda-accounting>
+(branch `main`). A clone needs its own `PORTKEY_API_KEY` in a `.env` at the
+project root — copy `.env.example`. No key is in the repo.
 
 Nothing is half-finished. Both servers are stopped; start them when you come
 back:
@@ -2498,6 +2592,8 @@ no amounts or counterparty names.
 | D27 | **Invoice number and source of payment are structured columns**, on the twelve templates whose source registers carry them; sales are not asked | 29 |
 | D28 | **Sales is three templates.** Revenue is recognised on payment — by `A1` or `A5`, never again at `A4`, which would double-count it | 30 |
 | D29 | **Reference-field labels and suggestions are per template group**, so tax never offers a marketplace | 31 |
+| D30 | **The brand guideline stays out of the public repo.** It is a Dassein Design Bureau document reserving all rights and barring reproduction without written permission. The repo is ours to publish; that PDF is not. It is still in `output/` locally | 47 |
+| D31 | **The report stays at 21 printed pages rather than losing screenshots.** Formatting took it from 30 to 21; the rest of the gap would cost evidence or legibility | 47 |
 | D23 | Figures are checked against **tool output content**, not merely that a data tool ran | 22 |
 
 ---
@@ -2516,7 +2612,10 @@ no amounts or counterparty names.
 | `AGENTS.md` | Project-level rules; pins the model |
 | `backend/` | FastAPI + SQLite API and the accounting helper |
 | `web/` | React + Vite + TypeScript front end (Berbeda) |
-| `output/brand_guideline_front_end.pdf` | BERBEDA brand guideline |
+| `output/report.html` | The written report, 21 printed letter pages |
+| `output/slides.html` | Nine-slide reveal.js deck, images embedded |
+| `README.md` | Clone-and-run instructions for the public repo |
+| `output/brand_guideline_front_end.pdf` | BERBEDA brand guideline — **local only**, see D30 |
 
 `output/` holds derived artifacts only — no monetary figures, no identifying
 data, and no copy of the source workbook.

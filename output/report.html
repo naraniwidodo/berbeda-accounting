@@ -126,11 +126,41 @@
   footer{max-width:940px;margin:0 auto 60px;padding:22px 70px;color:var(--faint);font-size:12.5px;
          background:var(--paper);border:1px solid var(--line);border-top:none}
 
+  @page{size:letter;margin:0.65in}
   @media print{
-    body{background:#fff}
-    .page,footer{border:none;max-width:none;padding:34px 0;margin:0}
-    .page{page-break-after:always}
-    figure,.opt,.note,table,.phone{page-break-inside:avoid}
+    body{background:#fff;font-size:10pt;line-height:1.42}
+    .page,footer{border:none;max-width:none;padding:0;margin:0}
+    .page{page-break-after:auto;padding-top:6pt}
+    .page + .page{border-top:1pt solid #e8e4db;margin-top:10pt;padding-top:10pt}
+    h2.sec{page-break-after:avoid}
+    .eyebrow{page-break-after:avoid}
+    .cover{page-break-after:always}
+    .cover{padding:0}
+    .cover h1{font-size:30pt}
+    h2.sec{font-size:19pt}
+    .lede{font-size:10.5pt;margin-bottom:10pt}
+    h3{font-size:12pt}
+    /* a screenshot and the sentence explaining it belong on one page */
+    /* a slide is 16:9 and wide, so it does not need half a page to be read.
+       Two figures fit on a page at this height, with their captions. */
+    figure{page-break-inside:avoid;margin:11pt 0 0}
+    figure img{max-height:2.3in;object-fit:contain}
+    figcaption{font-size:9pt;line-height:1.4;margin-top:5pt}
+    .phone{max-width:1.9in}
+    .code pre{font-size:8.5pt;line-height:1.45}
+    p{margin:0 0 7.5pt}
+    h3{margin:13pt 0 4pt}
+    h4{margin:14pt 0 4pt}
+    .note{margin:10pt 0;padding:9pt 11pt;font-size:9.5pt}
+    table{margin:10pt 0;font-size:9.5pt}
+    td,th{padding:5pt 7pt}
+    .opt{padding:11pt 13pt;margin:9pt 0}
+    .tool{padding:7pt 0;font-size:9.5pt}
+    .opt,.note,table,.phone,.code,.tool,.stack .row{page-break-inside:avoid}
+    tr{page-break-inside:avoid}
+    h3,h4{page-break-after:avoid}
+    a{color:inherit;text-decoration:none}
+    .stat-row{grid-template-columns:repeat(4,1fr)}
   }
   @media (max-width:760px){
     .page,.cover{padding:36px 22px}
@@ -162,7 +192,8 @@
   <div class="meta" style="grid-template-columns:1fr;margin-top:16px">
     <div>
       <div class="k">Repository</div>
-      <div class="v"><span class="pending">Link to be added once published</span></div>
+      <div class="v"><a href="https://github.com/naraniwidodo/berbeda-accounting">github.com/naraniwidodo/berbeda-accounting</a><br>
+      <span style="font-size:13.5px;color:var(--soft)">Public. Clone it, add your own Portkey key, and run it with the two commands in the README.</span></div>
     </div>
   </div>
 </section>
