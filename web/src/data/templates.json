@@ -1,0 +1,587 @@
+{
+  "templates": [
+    {
+      "id": "A1",
+      "group": "Sales",
+      "label": "Sales - Down Payment",
+      "description": "Books the deposit, recognises the revenue and raises the invoice in one entry. That is how the source ledger records a sale: 20 of 21 projects post all three on the same date.",
+      "seen": 23,
+      "sku": "required",
+      "stage": 1,
+      "opens": "prepayment_client",
+      "detail_from": "Revenue",
+      "detail_default": "Jasa Lukis",
+      "inputs": [
+        {
+          "name": "dp_amount",
+          "label": "Down payment received",
+          "type": "money"
+        },
+        {
+          "name": "project_value",
+          "label": "Total project value",
+          "type": "money"
+        }
+      ],
+      "lines": [
+        {
+          "side": "Dr",
+          "account": "Cash/Bank",
+          "amount": "dp_amount"
+        },
+        {
+          "side": "Cr",
+          "account": "Prepayment Client",
+          "amount": "dp_amount"
+        },
+        {
+          "side": "Dr",
+          "account": "Accrued Revenue",
+          "amount": "project_value"
+        },
+        {
+          "side": "Cr",
+          "account": "Revenue",
+          "amount": "project_value"
+        },
+        {
+          "side": "Dr",
+          "account": "Account Receivable",
+          "amount": "project_value"
+        },
+        {
+          "side": "Cr",
+          "account": "Accrued Revenue",
+          "amount": "project_value",
+          "note": "Accrued Revenue nets to zero - it is the bridge between recognising and invoicing"
+        }
+      ]
+    },
+    {
+      "id": "A4",
+      "group": "Sales",
+      "label": "Sales - Down Payment Final Settlement",
+      "seen": 13,
+      "sku": "required",
+      "stage": 4,
+      "closes": "prepayment_client",
+      "detail_from": "Revenue",
+      "detail_default": "Jasa Lukis",
+      "inputs": [
+        {
+          "name": "cash_received",
+          "label": "Cash received",
+          "type": "money"
+        }
+      ],
+      "context": [
+        {
+          "name": "dp_open",
+          "label": "Open DP on this SKU",
+          "source": "ledger",
+          "readonly": true
+        }
+      ],
+      "lines": [
+        {
+          "side": "Dr",
+          "account": "Cash/Bank",
+          "amount": "cash_received"
+        },
+        {
+          "side": "Dr",
+          "account": "Prepayment Client",
+          "amount": "dp_open",
+          "auto": true,
+          "note": "Filled from the open DP balance. Cannot be edited or omitted."
+        },
+        {
+          "side": "Cr",
+          "account": "Account Receivable",
+          "amount": "cash_received + dp_open"
+        }
+      ],
+      "description": "The client pays the rest of an order that began with a down payment. Pick the project and the open deposit is cleared automatically. No revenue is recognised here - it was recognised in full when the deposit was taken."
+    },
+    {
+      "id": "A5",
+      "group": "Sales",
+      "label": "Sales - Full Payment (No Down Payment)",
+      "seen": 2,
+      "sku": "optional",
+      "detail_from": "Revenue",
+      "detail_default": "Jasa Lukis",
+      "inputs": [
+        {
+          "name": "amount",
+          "label": "Amount paid in full",
+          "type": "money"
+        }
+      ],
+      "lines": [
+        {
+          "side": "Dr",
+          "account": "Accrued Revenue",
+          "amount": "amount"
+        },
+        {
+          "side": "Cr",
+          "account": "Revenue",
+          "amount": "amount"
+        },
+        {
+          "side": "Dr",
+          "account": "Account Receivable",
+          "amount": "amount"
+        },
+        {
+          "side": "Cr",
+          "account": "Accrued Revenue",
+          "amount": "amount"
+        },
+        {
+          "side": "Dr",
+          "account": "Cash/Bank",
+          "amount": "amount"
+        },
+        {
+          "side": "Cr",
+          "account": "Account Receivable",
+          "amount": "amount",
+          "note": "Accrued Revenue and Account Receivable both net to zero - they are the recognise-then-invoice bridge the ledger keeps"
+        }
+      ],
+      "description": "Paid in full with no deposit. Recognises the revenue, raises the invoice and settles it in one entry - the same three steps as a deposit sale, all on the same day."
+    },
+    {
+      "id": "B1",
+      "group": "Purchases",
+      "label": "Shipping / delivery",
+      "seen": 22,
+      "settlement": [
+        "paid_now",
+        "on_credit",
+        "from_prepayment"
+      ],
+      "detail_from": "S&D",
+      "detail_default": "Pengiriman",
+      "inputs": [
+        {
+          "name": "amount",
+          "label": "Amount",
+          "type": "money"
+        }
+      ],
+      "lines": [
+        {
+          "side": "Dr",
+          "account": "S&D",
+          "amount": "amount"
+        },
+        {
+          "side": "Cr",
+          "account": "@settlement",
+          "amount": "amount"
+        }
+      ],
+      "extras": [
+        "invoice_no",
+        "payment_source"
+      ]
+    },
+    {
+      "id": "B2",
+      "group": "Purchases",
+      "label": "Packaging & cards",
+      "seen": 17,
+      "settlement": [
+        "paid_now",
+        "on_credit",
+        "from_prepayment"
+      ],
+      "detail_from": "S&D",
+      "detail_default": "Packaging & Card",
+      "inputs": [
+        {
+          "name": "amount",
+          "label": "Amount",
+          "type": "money"
+        }
+      ],
+      "lines": [
+        {
+          "side": "Dr",
+          "account": "S&D",
+          "amount": "amount"
+        },
+        {
+          "side": "Cr",
+          "account": "@settlement",
+          "amount": "amount"
+        }
+      ],
+      "extras": [
+        "invoice_no",
+        "payment_source"
+      ]
+    },
+    {
+      "id": "B3",
+      "group": "Purchases",
+      "label": "Materials / production cost",
+      "seen": 22,
+      "settlement": [
+        "paid_now",
+        "on_credit",
+        "from_prepayment"
+      ],
+      "detail_from": "COGS",
+      "detail_default": "Operasional",
+      "inputs": [
+        {
+          "name": "amount",
+          "label": "Amount",
+          "type": "money"
+        }
+      ],
+      "lines": [
+        {
+          "side": "Dr",
+          "account": "COGS",
+          "amount": "amount"
+        },
+        {
+          "side": "Cr",
+          "account": "@settlement",
+          "amount": "amount"
+        }
+      ],
+      "extras": [
+        "invoice_no",
+        "payment_source"
+      ]
+    },
+    {
+      "id": "B4",
+      "group": "Purchases",
+      "label": "Office & operations",
+      "seen": 54,
+      "settlement": [
+        "paid_now",
+        "on_credit",
+        "from_prepayment"
+      ],
+      "detail_from": "OPEX",
+      "detail_default": "Office Exp.",
+      "inputs": [
+        {
+          "name": "amount",
+          "label": "Amount",
+          "type": "money"
+        }
+      ],
+      "lines": [
+        {
+          "side": "Dr",
+          "account": "OPEX",
+          "amount": "amount"
+        },
+        {
+          "side": "Cr",
+          "account": "@settlement",
+          "amount": "amount"
+        }
+      ],
+      "extras": [
+        "invoice_no",
+        "payment_source"
+      ]
+    },
+    {
+      "id": "B5",
+      "group": "Purchases",
+      "label": "Advertising",
+      "seen": 6,
+      "settlement": [
+        "paid_now",
+        "on_credit",
+        "from_prepayment"
+      ],
+      "detail_from": "Marketing",
+      "detail_default": "Ads",
+      "inputs": [
+        {
+          "name": "amount",
+          "label": "Amount",
+          "type": "money"
+        }
+      ],
+      "lines": [
+        {
+          "side": "Dr",
+          "account": "Marketing",
+          "amount": "amount"
+        },
+        {
+          "side": "Cr",
+          "account": "@settlement",
+          "amount": "amount"
+        }
+      ],
+      "extras": [
+        "invoice_no",
+        "payment_source"
+      ]
+    },
+    {
+      "id": "B6",
+      "group": "Purchases",
+      "label": "Stock purchase",
+      "seen": 39,
+      "settlement": [
+        "paid_now",
+        "on_credit",
+        "from_prepayment"
+      ],
+      "detail_from": "Inventory",
+      "detail_default": "Operasional",
+      "inputs": [
+        {
+          "name": "amount",
+          "label": "Amount",
+          "type": "money"
+        }
+      ],
+      "lines": [
+        {
+          "side": "Dr",
+          "account": "Inventory",
+          "amount": "amount"
+        },
+        {
+          "side": "Cr",
+          "account": "@settlement",
+          "amount": "amount"
+        }
+      ],
+      "extras": [
+        "invoice_no",
+        "payment_source"
+      ]
+    },
+    {
+      "id": "B7",
+      "group": "Purchases",
+      "label": "Salary with Art 21 withholding",
+      "seen": 13,
+      "detail_from": "OPEX",
+      "detail_default": "Wages & Salaries",
+      "inputs": [
+        {
+          "name": "gross",
+          "label": "Gross salary",
+          "type": "money"
+        },
+        {
+          "name": "tax",
+          "label": "Art 21 withheld",
+          "type": "money"
+        }
+      ],
+      "lines": [
+        {
+          "side": "Dr",
+          "account": "OPEX",
+          "amount": "gross"
+        },
+        {
+          "side": "Cr",
+          "account": "Art 21",
+          "amount": "tax",
+          "detail": "Art 21"
+        },
+        {
+          "side": "Cr",
+          "account": "Cash/Bank",
+          "amount": "gross - tax",
+          "note": "Net paid, computed"
+        }
+      ],
+      "extras": [
+        "invoice_no",
+        "payment_source"
+      ]
+    },
+    {
+      "id": "C1",
+      "group": "Settlements",
+      "label": "Pay a vendor",
+      "seen": 83,
+      "picker": "open_payables",
+      "detail_from": "Account Payable",
+      "detail_default": "Operasional",
+      "inputs": [
+        {
+          "name": "amount",
+          "label": "Amount paid",
+          "type": "money"
+        }
+      ],
+      "lines": [
+        {
+          "side": "Dr",
+          "account": "Account Payable",
+          "amount": "amount"
+        },
+        {
+          "side": "Cr",
+          "account": "Cash/Bank",
+          "amount": "amount"
+        }
+      ],
+      "extras": [
+        "invoice_no",
+        "payment_source"
+      ]
+    },
+    {
+      "id": "C2",
+      "group": "Settlements",
+      "label": "Advance to a vendor",
+      "seen": 5,
+      "detail_from": "Prepayment Vendor",
+      "detail_default": "Operasional",
+      "inputs": [
+        {
+          "name": "amount",
+          "label": "Advance",
+          "type": "money"
+        }
+      ],
+      "lines": [
+        {
+          "side": "Dr",
+          "account": "Prepayment Vendor",
+          "amount": "amount"
+        },
+        {
+          "side": "Cr",
+          "account": "Cash/Bank",
+          "amount": "amount"
+        }
+      ],
+      "extras": [
+        "invoice_no",
+        "payment_source"
+      ]
+    },
+    {
+      "id": "C3",
+      "group": "Settlements",
+      "label": "Vendor advance billed",
+      "seen": 19,
+      "detail_from": "Prepayment Vendor",
+      "detail_default": "Packaging & Card",
+      "inputs": [
+        {
+          "name": "amount",
+          "label": "Amount",
+          "type": "money"
+        }
+      ],
+      "lines": [
+        {
+          "side": "Dr",
+          "account": "Prepayment Vendor",
+          "amount": "amount"
+        },
+        {
+          "side": "Cr",
+          "account": "Account Payable",
+          "amount": "amount"
+        }
+      ],
+      "extras": [
+        "invoice_no",
+        "payment_source"
+      ]
+    },
+    {
+      "id": "D1",
+      "group": "Tax",
+      "label": "Remit Art 21",
+      "seen": 10,
+      "settlement": [
+        "paid_now",
+        "on_credit"
+      ],
+      "detail_from": "Art 21",
+      "detail_default": "Art 21",
+      "inputs": [
+        {
+          "name": "amount",
+          "label": "Amount remitted",
+          "type": "money"
+        }
+      ],
+      "lines": [
+        {
+          "side": "Dr",
+          "account": "Art 21",
+          "amount": "amount"
+        },
+        {
+          "side": "Cr",
+          "account": "@settlement",
+          "amount": "amount"
+        }
+      ],
+      "extras": [
+        "invoice_no",
+        "payment_source"
+      ],
+      "payment_source_label": "Payment Method",
+      "payment_source_placeholder": "Bank transfer, BCA, e-billing…"
+    },
+    {
+      "id": "E1",
+      "group": "Other income",
+      "label": "Non-sales income",
+      "seen": 2,
+      "detail_from": "Revenue",
+      "detail_default": "Others",
+      "inputs": [
+        {
+          "name": "amount",
+          "label": "Amount",
+          "type": "money"
+        }
+      ],
+      "lines": [
+        {
+          "side": "Dr",
+          "account": "Cash/Bank",
+          "amount": "amount"
+        },
+        {
+          "side": "Cr",
+          "account": "Revenue",
+          "amount": "amount"
+        }
+      ],
+      "extras": [
+        "invoice_no",
+        "payment_source"
+      ]
+    },
+    {
+      "id": "F1",
+      "group": "Other",
+      "label": "Others (manual entry)",
+      "seen": 3,
+      "manual": true,
+      "flag_for_review": true,
+      "lines": []
+    }
+  ]
+}

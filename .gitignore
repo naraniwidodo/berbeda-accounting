@@ -1,0 +1,19 @@
+# secrets live in ../.env, outside this folder - this is insurance in case one
+# is ever dropped in here
+.env
+.env.*
+!.env.example
+
+.DS_Store
+__pycache__/
+*.py[cod]
+.venv/
+node_modules/
+dist/
+*.db
+
+# Third-party document. The BERBEDA brand guideline was produced by Dassein
+# Design Bureau and carries "all rights reserved, no reproduction without
+# prior written permission". It stays out of the public repository; the
+# palette it specifies is already in web/src/index.css.
+output/brand_guideline_front_end.pdf

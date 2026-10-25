@@ -1,0 +1,36 @@
+{
+  "accounts": [
+    { "code": "Cash/Bank",          "type": "Asset",     "normal": "Dr", "details": [] },
+    { "code": "Account Receivable", "type": "Asset",     "normal": "Dr", "details": ["Jasa Lukis", "Canvas", "Sepatu/Jaket", "Special Request", "Others"] },
+    { "code": "Accrued Revenue",    "type": "Asset",     "normal": "Dr", "details": ["Jasa Lukis", "Canvas", "Sepatu/Jaket", "Special Request", "Others"] },
+    { "code": "Prepayment Vendor",  "type": "Asset",     "normal": "Dr", "details": ["Operasional", "Packaging & Card", "Pengiriman"] },
+    { "code": "Inventory",          "type": "Asset",     "normal": "Dr", "details": ["Operasional"] },
+
+    { "code": "Account Payable",    "type": "Liability", "normal": "Cr", "details": ["Operasional", "Packaging & Card", "Pengiriman", "Office Exp.", "RnD", "Ads", "Biaya", "Art 21"] },
+    { "code": "Prepayment Client",  "type": "Liability", "normal": "Cr", "details": ["Jasa Lukis", "Canvas", "Sepatu/Jaket", "Special Request", "Others"] },
+    { "code": "Art 21",             "type": "Liability", "normal": "Cr", "details": ["Art 21"] },
+    { "code": "Art 26",             "type": "Liability", "normal": "Cr", "details": ["Art 26"] },
+    { "code": "Other Tax",          "type": "Liability", "normal": "Cr", "details": ["Other Tax"] },
+
+    { "code": "Modal",              "type": "Equity",    "normal": "Cr", "details": [] },
+    { "code": "RE",                 "type": "Equity",    "normal": "Cr", "details": [] },
+
+    { "code": "Revenue",            "type": "Revenue",   "normal": "Cr", "details": ["Jasa Lukis", "Canvas", "Sepatu/Jaket", "Special Request", "Others"] },
+
+    { "code": "COGS",               "type": "Expense",   "normal": "Dr", "details": ["Operasional", "Sepatu/Jaket", "Special Request", "Biaya", "Pengiriman"] },
+    { "code": "S&D",                "type": "Expense",   "normal": "Dr", "details": ["Pengiriman", "Packaging & Card"] },
+    { "code": "OPEX",               "type": "Expense",   "normal": "Dr", "details": ["Wages & Salaries", "Bank Fee", "Office Exp.", "RnD", "Rent", "Entertainment & Travel", "Write Off"] },
+    { "code": "Marketing",          "type": "Expense",   "normal": "Dr", "details": ["Ads", "Marketing Others"] }
+  ],
+
+  "settlement": {
+    "paid_now":        { "label": "Paid now",        "account": "Cash/Bank" },
+    "on_credit":       { "label": "On credit",       "account": "Account Payable" },
+    "from_prepayment": { "label": "From prepayment", "account": "Prepayment Vendor" }
+  },
+
+  "statement_map": {
+    "pnl": ["Revenue", "COGS", "S&D", "OPEX", "Marketing"],
+    "balance_sheet": ["Asset", "Liability", "Equity"]
+  }
+}
